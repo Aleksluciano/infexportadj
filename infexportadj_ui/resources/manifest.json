@@ -1,0 +1,79 @@
+{
+	"sap.app": {
+		"id": "infexportadj_ui",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"crossNavigation": {
+			"inbounds": {
+				"infexportadj_uiShow": {
+					"title": "infexportadj_ui",
+					"icon": "sap-icon://share-2",
+					"semanticObject": "infexportadj_ui",
+					"action": "show",
+					"deviceTypes": {
+						"desktop": true,
+						"tablet": true,
+						"phone": true
+					}
+				}
+			},
+			"outbounds": {}
+		}
+	},
+	"sap.ui5": {
+		"_version": "1.2.0",
+		"componentName": "infexportadj_ui",
+		"rootView": {
+			"viewName": "infexportadj_ui.views.App",
+			"type": "XML",
+			"async": true,
+			"id": "app"
+		},
+		"dependencies": {
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {}
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "infexportadj_ui/views",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide",
+				"async": true
+			},
+			"routes": [{
+				"pattern": "",
+				"name": "appPage",
+				"target": "page"
+			},{
+				"pattern": "cfop",
+				"name": "appCfop",
+				"target": "cfop"
+			}],
+			"targets": {
+				"page": {
+					"id": "page",
+					"name": "Page",
+					"level": 1
+				},
+				"cfop": {
+					"id": "cfop",
+					"name": "Cfop",
+					"transition": "slide"
+				}
+			}
+		}
+	},
+	"sap.platform.cf": {},
+	"sap.platform.runtime": {
+		"componentProperties": {
+			"url": "/"
+		}
+	}
+}

@@ -1,0 +1,68 @@
+{
+	"welcomeFile": "index.html",
+	"authenticationMethod": "route",
+	"routes": [ {
+		"source": "/infexport/node(.*)",
+		"destination": "core-backend",
+		"target": "/node",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "/infexport/data(.*)",
+		"destination": "core-backend",
+		"target": "/data",
+		"csrfProtection": true,
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "/infexport/change(.*)",
+		"destination": "core-backend",
+		"target": "/change",
+		"csrfProtection": false,
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "/infexport/insert(.*)",
+		"destination": "core-backend",
+		"target": "/insert",
+		"csrfProtection": false,
+		"authenticationType": "xsuaa"
+	},{
+		"source": "/infexport/cfop/add(.*)",
+		"destination": "core-backend",
+		"target": "/cfop/add",
+		"csrfProtection": false,
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "/infexport/cfop/delete(.*)",
+		"destination": "core-backend",
+		"target": "/cfop/delete",
+		"csrfProtection": false,
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "/infexport/cfop/edit(.*)",
+		"destination": "core-backend",
+		"target": "/cfop/edit",
+		"csrfProtection": false,
+		"authenticationType": "xsuaa"
+	}, {
+		"source": "/infexport/cfop/alldata(.*)",
+		"destination": "core-backend",
+		"target": "/cfop/alldata",
+		"csrfProtection": false,
+		"authenticationType": "xsuaa"
+	},{
+		"source": "/infexport_ui_dest/(.*)$",
+		"localDir": "resources",
+		"authenticationType": "xsuaa",
+		"target": "$1"
+	}, {
+		"source": "/(.*)",
+		"localDir": "resources",
+		"authenticationType": "xsuaa",
+		"replace": {
+			"pathSuffixes": [
+				"index.html"
+			],
+			"vars": ["sapui5url"]
+		}
+	}]
+}

@@ -1,0 +1,35 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="TableDialog" title="STATUS" rightButton=".close" contentWidth="550px" contentHeight="300px">
+		<Table items="{ path: '/STATUS'}" id="tableStatus"
+		growing="true"
+		growingThreshold="10"
+		growingScrollToLoad="false"
+		>
+			<columns >
+				<Column >
+					<Text text="NF_ID"/>
+				</Column>
+				<Column >
+					<Text text="STATUS"/>
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem >
+					<cells>
+						<Text text="{NF_ID}"/>
+					</cells>
+					<cells>
+						<Text text="{STATUS}" id="status" class="textColor">
+							<customData>
+								<core:CustomData key="mydata" value="{STATUS}" writeToDom="true"/>
+							</customData>
+						</Text>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+		<buttons>
+			<Button text="Fechar" width="230px" press=".onClose"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

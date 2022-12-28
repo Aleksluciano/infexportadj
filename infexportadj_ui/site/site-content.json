@@ -1,0 +1,88 @@
+{
+	"roles": {
+		"Everyone": {
+			"_version": "1.0",
+			"identification": {
+				"id": "Everyone",
+				"namespace": "",
+				"entityType": "role"
+			},
+			"payload": {
+				"catalogs": [],
+				"groups": [{
+					"id": "adj_ui_GroupId"
+				}]
+			}
+		}
+	},
+	"applications": {
+
+		"infexportadj_ui": {
+			"sap.app": {
+				"_version": "1.3.0",
+				"id": "infexportadj_ui",
+				"title": "INFEXPORT",
+				"i18n": "i18n/i18n.properties",
+				"tags": {
+					"keywords": []
+				},
+				"crossNavigation": {
+					"inbounds": {
+						"infexportadj_uiShow": {
+							"semanticObject": "infexportadj_ui",
+							"action": "show",
+							"deviceTypes": {
+								"desktop": true,
+								"tablet": true,
+								"phone": true
+							},
+							"signature": {
+								"parameters": {},
+								"additionalParameters": "allowed"
+							}
+						}
+					},
+					"outbounds": {}
+				}
+			},
+			"sap.ui": {
+				"_version": "1.3.0",
+				"technology": "UI5"
+			},
+			"sap.ui5": {
+				"componentName": "infexportadj_ui",
+				"_version": "1.2.0"
+			},
+			"sap.platform.runtime": {
+				"componentProperties": {
+					"url": "infexport_ui_dest"
+				}
+			}
+		}
+
+	},
+	"groups": {
+		"adj_ui_GroupId": {
+			"identification": {
+				"id": "adj_ui_GroupId",
+				"i18n": "i18n/i18n.properties",
+				"namespace": "",
+				"title": "Custom T14SS"
+			},
+			"payload": {
+				"tiles": [{
+					"id": "infexportadj_ui_tile",
+					"title": "INFEXPORT",
+					"subTitle": "EFD 1100,1105 & 1110",
+					"icon": "sap-icon://share-2",
+					"appId": "infexportadj_ui",
+					"target": {
+						"semanticObject": "infexportadj_ui",
+						"action": "show",
+						"parameters": []
+					}
+				}]
+			}
+		}
+	}
+}

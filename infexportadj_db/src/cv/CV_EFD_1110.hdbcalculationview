@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Variable="http://www.sap.com/ndb/BiModelVariable.ecore" id="CV_EFD_1110" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="CV_EFD_1110.hdbcalculationview"/>
+<localVariables>
+  <variable id="P_EMP" parameter="true">
+    <descriptions defaultDescription="Company code"/>
+    <variableProperties datatype="NVARCHAR" length="4" mandatory="true" defaultValue="">
+      <valueDomain type="empty"/>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+  <variable id="P_DT_INI" parameter="true">
+    <descriptions defaultDescription="Initial date"/>
+    <variableProperties datatype="NVARCHAR" length="8" mandatory="true" defaultValue="">
+      <valueDomain type="empty"/>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+  <variable id="P_DT_FIN" parameter="true">
+    <descriptions defaultDescription="Final date"/>
+    <variableProperties datatype="NVARCHAR" length="8" mandatory="true" defaultValue="">
+      <valueDomain type="empty"/>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+
+  <variable id="P_MANDT_TDF" parameter="true">
+    <descriptions defaultDescription="Mandt"/>
+    <variableProperties datatype="NVARCHAR" length="3" mandatory="true" defaultValue="">
+      <valueDomain type="empty"/>
+      <selection multiLine="false" type="SingleValue"/>
+    </variableProperties>
+  </variable>
+</localVariables>
+<variableMappings>
+  <mapping xsi:type="Variable:VariableMapping" dataSource="CV_EFD_1100_1105" targetType="CALCULATION_VIEW">
+    <targetVariable name="P_EMP" resourceUri="CV_EFD_1100_1105"/>
+    <localVariable>P_EMP</localVariable>
+  </mapping>
+  <mapping xsi:type="Variable:VariableMapping" dataSource="CV_EFD_1100_1105" targetType="CALCULATION_VIEW">
+    <targetVariable name="P_DT_INI" resourceUri="CV_EFD_1100_1105"/>
+    <localVariable>P_DT_INI</localVariable>
+  </mapping>
+  <mapping xsi:type="Variable:VariableMapping" dataSource="CV_EFD_1100_1105" targetType="CALCULATION_VIEW">
+    <targetVariable name="P_DT_FIN" resourceUri="CV_EFD_1100_1105"/>
+    <localVariable>P_DT_FIN</localVariable>
+  </mapping>
+  <mapping xsi:type="Variable:VariableMapping" dataSource="CV_EFD_1100_1105" targetType="CALCULATION_VIEW">
+    <targetVariable name="P_MANDT_TDF" resourceUri="CV_EFD_1100_1105"/>
+    <localVariable>P_MANDT_TDF</localVariable>
+  </mapping>
+</variableMappings>
+<dataSources>
+  <DataSource id="adejo.table::J_1BNFE_EXPORT">
+    <resourceUri>adejo.table::J_1BNFE_EXPORT</resourceUri>
+  </DataSource>
+  <DataSource id="CV_EFD_1100_1105">
+    <resourceUri>CV_EFD_1100_1105</resourceUri>
+  </DataSource>
+  <DataSource id="adejo.view::/NF_DOCUMENTO_ITEM">
+    <resourceUri>adejo.view::/NF_DOCUMENTO_ITEM</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_NFE_EXPORT">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="DOCNUM"/>
+      <viewAttribute id="CHNFE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="adejo.table::J_1BNFE_EXPORT"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="A_NFE_EXPORT">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="DOCNUM"/>
+      <viewAttribute id="CHNFE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="P_NFE_EXPORT"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_1100_1105" filterExpressionLanguage="COLUMN_ENGINE">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="EMPRESA"/>
+      <viewAttribute id="FILIAL"/>
+      <viewAttribute id="NF_ID"/>
+      <viewAttribute id="NRO_DE"/>
+      <viewAttribute id="NRO_RE"/>
+      <viewAttribute id="NAT_EXP"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CV_EFD_1100_1105"/>
+    <filter>&quot;NAT_EXP&quot; = '1'</filter>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="J_1100_1105_EXP" cardinality="CN_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="EMPRESA"/>
+      <viewAttribute id="FILIAL"/>
+      <viewAttribute id="NF_ID"/>
+      <viewAttribute id="NRO_DE"/>
+      <viewAttribute id="NRO_RE"/>
+      <viewAttribute id="CHNFE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="P_1100_1105">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EMPRESA" source="EMPRESA"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FILIAL" source="FILIAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NF_ID" source="NF_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NRO_DE" source="NRO_DE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NRO_RE" source="NRO_RE"/>
+    </input>
+    <input node="A_NFE_EXPORT">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CHNFE" source="CHNFE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NF_ID" source="DOCNUM"/>
+    </input>
+    <joinAttribute name="MANDT"/>
+    <joinAttribute name="NF_ID"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_1100_1105_EXP">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="EMPRESA"/>
+      <viewAttribute id="FILIAL"/>
+      <viewAttribute id="NF_ID"/>
+      <viewAttribute id="NRO_DE"/>
+      <viewAttribute id="NRO_RE"/>
+      <viewAttribute id="CHNFE"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="J_1100_1105_EXP"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:ProjectionView" id="P_NF_DOC_ITEM">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="NF_ID"/>
+      <viewAttribute id="DT_DOC"/>
+      <viewAttribute id="SER"/>
+      <viewAttribute id="COD_PART"/>
+      <viewAttribute id="NUM_DOC"/>
+      <viewAttribute id="COD_MOD"/>
+      <viewAttribute id="CHV_NFE"/>
+      <viewAttribute id="QTD"/>
+      <viewAttribute id="UNID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="adejo.view::/NF_DOCUMENTO_ITEM"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="J_1110_3RD" cardinality="CN_N" joinType="inner" filterExpressionLanguage="COLUMN_ENGINE">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="EMPRESA"/>
+      <viewAttribute id="FILIAL"/>
+      <viewAttribute id="NF_ID"/>
+      <viewAttribute id="NRO_DE"/>
+      <viewAttribute id="NRO_RE"/>
+      <viewAttribute id="CHNFE"/>
+      <viewAttribute id="NF_ID_3RD"/>
+      <viewAttribute id="DT_DOC"/>
+      <viewAttribute id="SER"/>
+      <viewAttribute id="COD_PART"/>
+      <viewAttribute id="NUM_DOC"/>
+      <viewAttribute id="COD_MOD"/>
+      <viewAttribute id="CHV_NFE"/>
+      <viewAttribute id="QTD"/>
+      <viewAttribute id="UNID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="P_1100_1105_EXP">
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="EMPRESA" source="EMPRESA"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="FILIAL" source="FILIAL"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NF_ID" source="NF_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NRO_DE" source="NRO_DE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NRO_RE" source="NRO_RE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CHNFE" source="CHNFE"/>
+    </input>
+    <input node="P_NF_DOC_ITEM">
+      <mapping xsi:type="Calculation:AttributeMapping" target="NF_ID_3RD" source="NF_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DT_DOC" source="DT_DOC"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SER" source="SER"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_PART" source="COD_PART"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="NUM_DOC" source="NUM_DOC"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COD_MOD" source="COD_MOD"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CHV_NFE" source="CHV_NFE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="QTD" source="QTD"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="UNID" source="UNID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MANDT" source="MANDT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CHNFE" source="CHV_NFE"/>
+    </input>
+    <joinAttribute name="MANDT"/>
+    <joinAttribute name="CHNFE"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:AggregationView" id="A_1110_3RD">
+    <viewAttributes>
+      <viewAttribute id="MANDT"/>
+      <viewAttribute id="EMPRESA"/>
+      <viewAttribute id="FILIAL"/>
+      <viewAttribute id="NF_ID"/>
+      <viewAttribute id="NRO_DE"/>
+      <viewAttribute id="NRO_RE"/>
+      <viewAttribute id="NF_ID_3RD"/>
+      <viewAttribute id="DT_DOC"/>
+      <viewAttribute id="SER"/>
+      <viewAttribute id="COD_PART"/>
+      <viewAttribute id="NUM_DOC"/>
+      <viewAttribute id="COD_MOD"/>
+      <viewAttribute id="CHV_NFE"/>
+      <viewAttribute id="QTD" aggregationType="sum"/>
+      <viewAttribute id="UNID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <restrictedViewAttributes/>
+    <input node="J_1110_3RD"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="A_1110_3RD">
+  <attributes>
+    <attribute id="MANDT" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="MANDT_TDF"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="MANDT"/>
+    </attribute>
+    <attribute id="EMPRESA" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="EMPRESA"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="EMPRESA"/>
+    </attribute>
+    <attribute id="FILIAL" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="FILIAL"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="FILIAL"/>
+    </attribute>
+    <attribute id="NF_ID" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NF_ID"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="NF_ID"/>
+    </attribute>
+    <attribute id="NRO_DE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NRO_DE"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="NRO_DE"/>
+    </attribute>
+    <attribute id="NRO_RE" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NRO_RE"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="NRO_RE"/>
+    </attribute>
+    <attribute id="NF_ID_3RD" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NF_ID"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="NF_ID_3RD"/>
+    </attribute>
+    <attribute id="DT_DOC" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DT_DOC"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="DT_DOC"/>
+    </attribute>
+    <attribute id="SER" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SER"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="SER"/>
+    </attribute>
+    <attribute id="COD_PART" order="10" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COD_PART"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="COD_PART"/>
+    </attribute>
+    <attribute id="NUM_DOC" order="11" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="NUM_DOC"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="NUM_DOC"/>
+    </attribute>
+    <attribute id="COD_MOD" order="12" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COD_MOD"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="COD_MOD"/>
+    </attribute>
+    <attribute id="CHV_NFE" order="13" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CHV_NFE"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="CHV_NFE"/>
+    </attribute>
+    <attribute id="QTD" order="14" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="QTD"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="QTD"/>
+    </attribute>
+    <attribute id="UNID" order="15" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="UNID"/>
+      <keyMapping columnObjectName="A_1110_3RD" columnName="UNID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="268" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="P_NFE_EXPORT" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="101" y="871"/>
+      <rectangleSize height="30" width="229"/>
+    </shape>
+    <shape expanded="true" modelObjectName="A_NFE_EXPORT" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="119" y="756"/>
+      <rectangleSize height="30" width="194"/>
+    </shape>
+    <shape expanded="true" modelObjectName="P_1100_1105" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="363" y="746"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="J_1100_1105_EXP" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="279" y="606"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="P_1100_1105" modelObjectNameSpace="J_1100_1105_EXP" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="139"/>
+    </shape>
+    <shape modelObjectName="A_NFE_EXPORT" modelObjectNameSpace="J_1100_1105_EXP" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="159"/>
+    </shape>
+    <shape expanded="true" modelObjectName="P_1100_1105_EXP" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="348" y="481"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape expanded="true" modelObjectName="P_NF_DOC_ITEM" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="91" y="481"/>
+      <rectangleSize height="30" width="206"/>
+    </shape>
+    <shape expanded="true" modelObjectName="J_1110_3RD" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="248" y="341"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="P_1100_1105_EXP" modelObjectNameSpace="J_1110_3RD" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="P_NF_DOC_ITEM" modelObjectNameSpace="J_1110_3RD" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape expanded="true" modelObjectName="A_1110_3RD" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="269" y="236"/>
+      <rectangleSize height="30" width="119"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

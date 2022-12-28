@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog id="CfopEditDialog" title="Editar cfop">
+		<VBox alignItems="Center">
+			<VBox alignItems="Start">
+				<Label required="true" text="Cfop:" labelFor="input-iteme" class="margin1"/>
+				<Input id="input-iteme" class="sapUiSmallMarginBottom" type="Text" enabled="true" value="{/Cfop}" editable="false"/>
+						<Label required="true" text="Natureza Exportação:" labelFor="input-exporte" class="margin1"/>
+				<ComboBox id="input-exporte" selectedKey="{/SelectedNatExp}" items="{ path: '/NatExpCollection', sorter: { path: 'Name' } }">
+					<core:Item key="{Id}" text="{Name}"/>
+				</ComboBox>
+
+			</VBox>
+		</VBox>
+		<buttons>
+			<Button text="Cancelar" width="100px" press=".onClose2"/>
+			<Button type="Emphasized" text="Salvar" press=".save2"/>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

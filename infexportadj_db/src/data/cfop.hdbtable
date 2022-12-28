@@ -1,0 +1,5 @@
+ROW TABLE "infexportadj.infexportadj_db.data::CFOP" (
+     "CFOP" NVARCHAR(4) COMMENT 'Cfop',
+	 "NAT_EXP" NVARCHAR(1) COMMENT 'Natureza de operação',
+	 PRIMARY KEY ("CFOP"))
+	 COMMENT 'Parâmetros para determinar cfop'

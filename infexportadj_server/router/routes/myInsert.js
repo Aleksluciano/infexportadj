@@ -66,7 +66,7 @@ FROM "CV_EFD_1110"
 				let d_exportaca = inicia_estrutura("d_exportaca");
 				let d_export_nf = inicia_estrutura("d_export_nf");
 
-				if (csv_row.NAT_EXP = "1") {
+				if (csv_row.NAT_EXP == "1") {
 					let data = busca_registros_iguais(v_efd_1110_table, csv_row);
 					if (registros_existem(data)) {
 						for (let data_line of data) {
